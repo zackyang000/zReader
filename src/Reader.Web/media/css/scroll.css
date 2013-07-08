@@ -2938,9 +2938,6 @@ a:hover .tree-item-action-container, .scroll-tree li a.menu-open {
     display: block;
     background: #fff;
 }
-#chrome.page-view #chrome-view-links, #chrome.page-view #viewer-header-container, #chrome.page-view #viewer-footer, #chrome.page-view #viewer-entries-container, #chrome.page-view #title-and-status-holder {
-    display: none;
-}
 #activity-indicator {
     position: absolute;
     bottom: 10px;

@@ -5,6 +5,7 @@
         public string Title { get; set; }
         public string XmlUrl { get; set; }
         public string HtmlUrl { get; set; }
+        public int Count { get; set; }
 
         public GoogleRssItem()
         {

@@ -181,10 +181,10 @@
                                             <ul ng-repeat="rss in folder.RssItems">
                                                 <li class="sub unselectable expanded unread">
                                                     <div class="toggle sub-toggle toggle-d-2 hidden"></div>
-                                                    <a class="link" ng-click="showContent(rss.Title,'rss')">
+                                                    <a class="link" ng-click="showContent(rss,'rss')">
                                                         <div style="background-image: url('/Content/img/default.gif'); background-size:16px 16px" class="icon sub-icon icon-d-2 favicon"></div>
-                                                        <div class="name-text sub-name-text name-text-d-2 name sub-name name-d-2 name-unread">{{rss.Title}}</div>
-                                                        <div class="unread-count sub-unread-count unread-count-d-2"></div>
+                                                        <div class="name-text name name-unread" ng-show="rss.Count>0">{{rss.Title}} ({{rss.Count}})</div>
+                                                        <div class="name-text name" ng-show="rss.Count==0">{{rss.Title}}</div>
                                                         <div class="tree-item-action-container">
                                                             <div class="action tree-item-action section-button section-menubutton goog-menu-button"></div>
                                                         </div>
@@ -235,9 +235,9 @@
                             </div>
                         </div>
                         <div id="viewer-container">
-                            <div style="height: 434px;">
+                            <div  id="viewer-entries-container" style="height: 434px;">
                                 <div id="title-and-status-holder">
-                                    <span id="chrome-title"></span>
+                                    <span id="chrome-title"><a target="_blank" href="{{currentFeed.SiteUrl}}">{{currentFeed.Title}}<span class="chevron">»</span></a></span>
                                     <span id="viewer-single-parent"></span>
                                     <span id="viewer-single-item-parent"></span>
                                     <span id="entries-status"></span>
