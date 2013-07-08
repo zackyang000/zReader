@@ -92,7 +92,7 @@ toggleShortcutMap = function() {
 };
 
 generateContentList = function(entries) {
-  var a, date, desc, div, dt, i, item, link, stitle, title, _i, _len, _results;
+  var a, date, desc, dt, i, item, link, stitle, title, _i, _len, _results;
   i = 0;
   _results = [];
   for (_i = 0, _len = entries.length; _i < _len; _i++) {
@@ -103,10 +103,6 @@ generateContentList = function(entries) {
     stitle = item.stitle;
     title = item.title;
     desc = item.contentSnippet;
-    $("#viewer-header-container").css("display", "block");
-    $("#viewer-entries-container").css("display", "block");
-    $("#viewer-page-container").css("display", "none");
-    div = $(sprintf('<div class="entry entry-%s ril_marked"><div class="collapsed"><div class="entry-icons"><div class="item-star star link unselectable empty"></div></div><div class="entry-date">%s</div><div class="entry-main"><a class="entry-original" target="_blank" href="%s"></a><span class="entry-source-title">%s</span><div class="entry-secondary"><h2 class="entry-title">%s</h2><span class="entry-secondary-snippet"> - <span class="snippet">%s</span></span></div></div></div></div>', i, date, link, stitle, title, desc));
     i += 1;
     a = function(obj, args) {
       obj.find(".collapsed").click(function() {

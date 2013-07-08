@@ -13,6 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YangKai.RssReader.Services"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Temp", "Temp", "{BE26A395-4A62-4AF8-BAC9-161FBDB9ABAC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{1DB33DE8-6325-4BE9-B5B3-3497964F136D}"
+	ProjectSection(SolutionItems) = preProject
+		System.Data.SQLite.dll = System.Data.SQLite.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

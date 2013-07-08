@@ -4,15 +4,16 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using YangKai.RssReader.Infrastructure;
 
 namespace Reader.Web.Controllers
 {
     public class RssController : ApiController
     {
-        // GET api/values
-        public IEnumerable<string> Get()
+        public object Get(string title)
         {
-            return new string[] { "value1", "value2" };
+            var sql = string.Format("select * from Rss where Channel='{0}' limit 0,100", title);
+            return SqliteHelper.ExecuteDataSet(sql);
         }
     }
 }

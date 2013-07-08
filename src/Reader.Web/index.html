@@ -181,7 +181,7 @@
                                             <ul ng-repeat="rss in folder.RssItems">
                                                 <li class="sub unselectable expanded unread">
                                                     <div class="toggle sub-toggle toggle-d-2 hidden"></div>
-                                                    <a class="link">
+                                                    <a class="link" ng-click="showContent(rss.Title,'rss')">
                                                         <div style="background-image: url('/Content/img/default.gif'); background-size:16px 16px" class="icon sub-icon icon-d-2 favicon"></div>
                                                         <div class="name-text sub-name-text name-text-d-2 name sub-name name-d-2 name-unread">{{rss.Title}}</div>
                                                         <div class="unread-count sub-unread-count unread-count-d-2"></div>
@@ -205,7 +205,7 @@
             <div id="chrome" class="page-view">
                 <div id="chrome-viewer-container">
                     <div id="chrome-viewer">
-                        <div id="viewer-header-container">
+                        <div>
                             <div id="viewer-header">
                                 <div id="viewer-top-controls-container">
                                     <div id="viewer-top-controls">
@@ -235,7 +235,7 @@
                             </div>
                         </div>
                         <div id="viewer-container">
-                            <div id="viewer-entries-container" style="height: 434px;">
+                            <div style="height: 434px;">
                                 <div id="title-and-status-holder">
                                     <span id="chrome-title"></span>
                                     <span id="viewer-single-parent"></span>
@@ -244,17 +244,21 @@
                                     <div class="clear" style=""></div>
                                 </div>
                                 <div class="samedir">
-                                    <div id="quick-add-success" class="hidden">
-                                        您已经订阅了“<span id="quick-add-success-title"></span>”。
-                                    </div>
                                     <div id="entries" class="single-source list">
-                                        <div id="scroll-filler" class="hidden">
-                                            <div id="scroll-filler-recs-message" class="scroll-filler-message">
-                                                <div>您没有更多条目了。</div>
-                                                <div class="secondary">请等等！我们有一些推荐的条目供您阅读。</div>
-                                                <div class="secondary">好极了！ &nbsp;<a id="scroll-filler-see-recommendations" href="http://www.google.com/reader/view/pop/topic%2Ftop%2Flanguage%2Fzh-CN">为我显示自己的推荐内容</a></div>
-                                            </div>
-                                            <div id="single-item-bottom-links">
+                                        <div class="entry entry-{{item.Id}} ril_marked" ng-repeat="item in rss">
+                                            <div class="collapsed">
+                                                <div class="entry-icons">
+                                                    <div class="item-star star link unselectable empty"></div>
+                                                </div>
+                                                <div class="entry-date">{{item.Pubdate}}</div>
+                                                <div class="entry-main">
+                                                    <a class="entry-original" target="_blank" href="{{item.Link}}"></a>
+                                                    <span class="entry-source-title">{{item.Channel}}</span>
+                                                    <div class="entry-secondary">
+                                                        <h2 class="entry-title" ng-bind-html-unsafe="item.Title"></h2>
+                                                        <span class="entry-secondary-snippet"> - <span class="snippet" ng-bind-html-unsafe="item.Description"></span></span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

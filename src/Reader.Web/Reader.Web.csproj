@@ -43,6 +43,10 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.SQLite, Version=1.0.82.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\System.Data.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -158,6 +162,7 @@
       <DependentUpon>style.less</DependentUpon>
     </Content>
     <Content Include="Content\fonts\glyphiconshalflings-regular.svg" />
+    <Content Include="Content\img\default.gif" />
     <Content Include="Content\js\angular-resource.js" />
     <Content Include="Content\js\angular.js" />
     <Content Include="Content\js\app.js">
@@ -241,6 +246,10 @@
     <ProjectReference Include="..\YangKai.RssReader.Domain\YangKai.RssReader.Domain.csproj">
       <Project>{E08DB568-1505-49F5-834D-EA4B9C0ADC3B}</Project>
       <Name>YangKai.RssReader.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YangKai.RssReader.Infrastructure\YangKai.RssReader.Infrastructure.csproj">
+      <Project>{80C2FE7D-06DF-417B-AE19-7CEF39A604FA}</Project>
+      <Name>YangKai.RssReader.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\YangKai.RssReader.Services\YangKai.RssReader.Services.csproj">
       <Project>{131F6623-FAF7-46B1-B66A-97FEE684398B}</Project>
