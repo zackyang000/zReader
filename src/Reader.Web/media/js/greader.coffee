@@ -50,7 +50,6 @@ showContent = (feedUrl) ->
     $("#title-and-status-holder").css("display", "block")
     $("#chrome-title").html(sprintf('<a target="_blank" href="%s">%s<span class="chevron">»</span></a>', feed.link, feed.title))
     $("#chrome-view-links").css("display", "block")
-
     currentFeedUrl = feedUrl
     generateContentList(feed.entries)
 
@@ -62,10 +61,6 @@ showFolderContent = (dict) ->
     $("#chrome-view-links").css("display", "block")
     #entries = []
     for item in dict.item
-        if localStorage.getItem(item.feedUrl) == null
-            refreshFeed item.feedUrl, (feed, faviconUrl) ->
-                generateContentList(feed.entries)
-        else
             #entries.concat(JSON.parse(localStorage.getItem(item.feedUrl)).entries)
             entries = JSON.parse(localStorage.getItem(item.feedUrl)).entries
             generateContentList(entries)
@@ -228,21 +223,6 @@ addFeed = () ->
         alert "You have subscribed to #{url}"
         return
 
-    refreshFeed url, (feed, faviconUrl) ->
-        f =
-            title:   feed.title,
-            type:    "rss",
-            feedUrl: feed.feedUrl,
-            favicon: faviconUrl
-        li = generateFeed(f)
-        $("#sub-tree-item-0-main ul:first").append(li)
-
-        $("#quick-add-bubble-holder").toggleClass("show")
-        $("#quick-add-bubble-holder").toggleClass("hidden")
-
-        subscriptions.push(f)
-        localStorage.setItem("subscriptions", JSON.stringify(subscriptions))
-
 saveFavicon = (faviconUrl, domainName, cb) ->
     xhr = new XMLHttpRequest()
     xhr.open('GET', faviconUrl, true)
@@ -294,10 +274,7 @@ getJsonFeed = (url, cb) ->
 generateFeed = (feed) ->
     li = $(sprintf('<li class="sub unselectable expanded unread">\n<div class="toggle sub-toggle toggle-d-2 hidden"></div>\n<a class="link" title="%s">\n <div style="background-image: url(%s); background-size:16px 16px" class="icon sub-icon icon-d-2 favicon">\n </div>\n <div class="name-text sub-name-text name-text-d-2 name sub-name name-d-2 name-unread">%s</div>\n <div class="unread-count sub-unread-count unread-count-d-2"></div>\n <div class="tree-item-action-container">\n <div class="action tree-item-action section-button section-menubutton goog-menu-button"></div>\n </div>\n </a>\n </li>', feed.feedUrl, feed.favicon, feed.title))
     li.find("a:first").click ->
-        if localStorage.getItem(feed.feedUrl) == null
-            refreshFeed feed.feedUrl, (feed, faviconUrl) -> showContent(feed.feedUrl)
-        else
-            showContent(feed.feedUrl)
+      showContent(feed.feedUrl)
     return li
 
 toggle = (obj) ->
@@ -314,15 +291,6 @@ removeFeed = () ->
             $("#stream-prefs-menu").click()
             return
 
-refreshFeed = (feedUrl, cb) ->
-    getJsonFeed feedUrl, (feed) ->
-        localStorage.setItem(feedUrl, JSON.stringify(feed))
-
-        domainName = feed.link.split("/")[2]
-        url = "http://" + domainName + "/favicon.ico"
-        saveFavicon url, domainName, (faviconUrl) ->
-            cb(feed, faviconUrl)
-
 # Auto fix height
 auto_height = () ->
     $section = $('#scrollable-sections')
@@ -338,14 +306,12 @@ do ($ = jQuery) ->
 
     $("#add-feed").on 'click', addFeed
     $(".folder-toggle").click -> toggle($(this).parent())
-    $("#viewer-refresh").click -> refreshFeed currentFeedUrl, (feed, favcionUrl) -> showContent(feed.feedUrl)
     $("#lhn-selectors-minimize").click -> $("#lhn-selectors").toggleClass("section-minimized")
     $("#lhn-recommendations-minimize").click -> $("#lhn-recommendations").toggleClass("section-minimized")
     $("#lhn-subscriptions-minimize").click -> $("#lhn-subscriptions").toggleClass("section-minimized")
 
     # Setting menu event bindings
     $('#settings-button-container').on 'click', () -> $('#settings-button-menu').toggle()
-    $("#settings-button-menu .goog-menuitem-settings").on 'click', showSettingsPage
 
     $('#quickadd').bind 'keypress', (e) ->
         code = if e.keyCode then e.keyCode else e.which
@@ -366,17 +332,6 @@ do ($ = jQuery) ->
         window.requestFileSystem window.TEMPORARY, 100*1024*1024, (filesystem) ->
             fs = filesystem
         , errorHandler
-
-    #读取已订阅网站列表
-    feed_ul = $("#sub-tree-item-0-main ul:first")
-    for item in subscriptions
-        if item.type == "rss" and (item.categories == undefined || item.categories.length == 0)
-            feed_ul.append(generateFeed(item))
-        if item.type == "folder"
-            f = generateFolder(item)
-            feed_ul.append(f)
-            if item.title == start_folder
-                f.find("a:first").click()
 
     # keyboard shortcut
     $("body").bind 'keypress', (e) ->

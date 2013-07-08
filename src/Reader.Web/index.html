@@ -9,6 +9,7 @@
         <link type="text/css" rel="stylesheet" href="media/css/scroll_large_density.css" disabled="disabled" />
         <link type="text/css" rel="stylesheet" href="media/css/scroll_medium_density.css" disabled="disabled" />
         <link type="text/css" rel="stylesheet" href="media/css/scroll_small_density.css" />
+        <link type="text/css" rel="stylesheet" href="/Content/css/style.css" />
     </head>
     <body ng-controller="HomeController">
         
@@ -110,14 +111,6 @@
                         </div>
                         <div id="lhn-selectors" class="section lhn-section">
                             <div id="lhn-selectors-minimize" class="section-button section-minimize"></div>
-                            <div id="lhn-selectors-menubutton" class="section-button section-menubutton goog-menu-button goog-inline-block" aria-expanded="false" role="button" style="-webkit-user-select: none;" tabindex="0" aria-haspopup="true">
-                                <div class="goog-inline-block goog-menu-button-outer-box">
-                                    <div class="goog-inline-block goog-menu-button-inner-box">
-                                        <div class="goog-inline-block goog-menu-button-caption"></div>
-                                        <div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="lhn-section-primary">
                                 <div id="reading-list-selector" class="selector no-icon unread">
                                     <a href="#" class="link"><span class="text"><span class="label">所有条目</span><span id="reading-list-unread-count" class="unread-count"></span></span></a>
@@ -159,7 +152,11 @@
                                             <li class="folder unselectable collapsed" id="recs-tree-item-2-main">
                                                 <div class="toggle folder-toggle toggle-d-1">
                                                 </div>
-                                                <a class="link" href="#" id="recs-tree-item-2-link"><div class="icon folder-icon icon-d-1" id="recs-tree-item-2-icon"></div><div class="name-text folder-name-text name-text-d-1 name folder-name name-d-1" id="recs-tree-item-2-name">推荐源</div><div class="unread-count folder-unread-count unread-count-d-1" id="recs-tree-item-2-unread-count"></div></a>
+                                                <a class="link" href="#" id="recs-tree-item-2-link">
+                                                    <div class="icon folder-icon icon-d-1" id="recs-tree-item-2-icon"></div>
+                                                    <div class="name-text folder-name-text name-text-d-1 name folder-name name-d-1" id="recs-tree-item-2-name">推荐源</div>
+                                                    <div class="unread-count folder-unread-count unread-count-d-1" id="recs-tree-item-2-unread-count"></div>
+                                                </a>
                                             </li>
                                         </ul>
                                     </li>
@@ -171,34 +168,31 @@
                         </div>
                         <div id="lhn-subscriptions" class="section lhn-section  ">
                             <div id="lhn-subscriptions-minimize" class="section-button section-minimize"></div>
-                            <div id="lhn-subscriptions-menubutton" class="section-button section-menubutton goog-menu-button goog-inline-block" aria-expanded="false" role="button" style="-webkit-user-select: none;" tabindex="0" aria-haspopup="true">
-                                <div class="goog-inline-block goog-menu-button-outer-box">
-                                    <div class="goog-inline-block goog-menu-button-inner-box">
-                                        <div class="goog-inline-block goog-menu-button-caption"></div>
-                                        <div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="lhn-section-primary">
                                 <span id="sub-tree-header" class="unselectable">订阅</span>
-                                <span id="sub-tree-refreshing" class="hidden">刷新...</span>
                             </div>
                             <div id="sub-tree-container" class="scroll-tree-container lhn-section-secondary">
                                 <ul id="sub-tree" class="scroll-tree scroll-tree-show-updated">
                                     <li class="folder unselectable expanded" id="sub-tree-item-0-main">
                                         <div class="toggle folder-toggle toggle-d-0"></div>
-                                        <a class="link" href="/reader/view/user/-/state/com.google/root" id="sub-tree-item-0-link">
-                                            <div class="icon folder-icon icon-d-0" id="sub-tree-item-0-icon"></div>
-                                            <div class="name-text folder-name-text name-text-d-0 name folder-name name-d-0" id="sub-tree-item-0-name">root</div>
-                                            <div class="unread-count folder-unread-count unread-count-d-0" id="sub-tree-item-0-unread-count"></div>
-                                            <div class="tree-item-action-container">
-                                                <div id="sub-tree-item-0-action" class="action tree-item-action section-button section-menubutton goog-menu-button">
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <!-- all feeds should append here -->
-                                        <ul>
-                                        </ul>
+                                        <div ng-repeat="folder in feeds.Folders">
+                                            <div class="icon folder-icon"></div>
+                                            <div>{{folder.FolderName}}</div>
+                                            <ul ng-repeat="rss in folder.RssItems">
+                                                <li class="sub unselectable expanded unread">
+                                                    <div class="toggle sub-toggle toggle-d-2 hidden"></div>
+                                                    <a class="link">
+                                                        <div style="background-image: url('/Content/img/default.gif'); background-size:16px 16px" class="icon sub-icon icon-d-2 favicon"></div>
+                                                        <div class="name-text sub-name-text name-text-d-2 name sub-name name-d-2 name-unread">{{rss.Title}}</div>
+                                                        <div class="unread-count sub-unread-count unread-count-d-2"></div>
+                                                        <div class="tree-item-action-container">
+                                                            <div class="action tree-item-action section-button section-menubutton goog-menu-button"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
                                     </li>
                                 </ul>
                             </div>

@@ -1,4 +1,4 @@
-﻿var addFeed, auto_height, currentFeedUrl, errorHandler, generateContentList, generateFeed, getJsonFeed, refreshFeed, removeFeed, saveFavicon, showContent, showDetail, showFolderContent, start_folder, subscriptions, toggle, toggleAddBox, toggleShortcutMap, toggleStar;
+﻿var addFeed, auto_height, currentFeedUrl, errorHandler, generateContentList, generateFeed, getJsonFeed, removeFeed, saveFavicon, showContent, showDetail, showFolderContent, start_folder, subscriptions, toggle, toggleAddBox, toggleShortcutMap, toggleStar;
 
 subscriptions = JSON.parse(localStorage.getItem("subscriptions")) || [];
 
@@ -74,14 +74,8 @@ showFolderContent = function(dict) {
   _results = [];
   for (_i = 0, _len = _ref.length; _i < _len; _i++) {
     item = _ref[_i];
-    if (localStorage.getItem(item.feedUrl) === null) {
-      _results.push(refreshFeed(item.feedUrl, function(feed, faviconUrl) {
-        return generateContentList(feed.entries);
-      }));
-    } else {
-      entries = JSON.parse(localStorage.getItem(item.feedUrl)).entries;
-      _results.push(generateContentList(entries));
-    }
+    entries = JSON.parse(localStorage.getItem(item.feedUrl)).entries;
+    _results.push(generateContentList(entries));
   }
   return _results;
 };
@@ -172,23 +166,7 @@ addFeed = function() {
   }
   if (localStorage.getItem(url)) {
     alert("You have subscribed to " + url);
-    return;
   }
-  return refreshFeed(url, function(feed, faviconUrl) {
-    var f, li;
-    f = {
-      title: feed.title,
-      type: "rss",
-      feedUrl: feed.feedUrl,
-      favicon: faviconUrl
-    };
-    li = generateFeed(f);
-    $("#sub-tree-item-0-main ul:first").append(li);
-    $("#quick-add-bubble-holder").toggleClass("show");
-    $("#quick-add-bubble-holder").toggleClass("hidden");
-    subscriptions.push(f);
-    return localStorage.setItem("subscriptions", JSON.stringify(subscriptions));
-  });
 };
 
 saveFavicon = function(faviconUrl, domainName, cb) {
@@ -254,13 +232,7 @@ generateFeed = function(feed) {
   var li;
   li = $(sprintf('<li class="sub unselectable expanded unread">\n<div class="toggle sub-toggle toggle-d-2 hidden"></div>\n<a class="link" title="%s">\n <div style="background-image: url(%s); background-size:16px 16px" class="icon sub-icon icon-d-2 favicon">\n </div>\n <div class="name-text sub-name-text name-text-d-2 name sub-name name-d-2 name-unread">%s</div>\n <div class="unread-count sub-unread-count unread-count-d-2"></div>\n <div class="tree-item-action-container">\n <div class="action tree-item-action section-button section-menubutton goog-menu-button"></div>\n </div>\n </a>\n </li>', feed.feedUrl, feed.favicon, feed.title));
   li.find("a:first").click(function() {
-    if (localStorage.getItem(feed.feedUrl) === null) {
-      return refreshFeed(feed.feedUrl, function(feed, faviconUrl) {
-        return showContent(feed.feedUrl);
-      });
-    } else {
-      return showContent(feed.feedUrl);
-    }
+    return showContent(feed.feedUrl);
   });
   return li;
 };
@@ -285,18 +257,6 @@ removeFeed = function() {
   }
 };
 
-refreshFeed = function(feedUrl, cb) {
-  return getJsonFeed(feedUrl, function(feed) {
-    var domainName, url;
-    localStorage.setItem(feedUrl, JSON.stringify(feed));
-    domainName = feed.link.split("/")[2];
-    url = "http://" + domainName + "/favicon.ico";
-    return saveFavicon(url, domainName, function(faviconUrl) {
-      return cb(feed, faviconUrl);
-    });
-  });
-};
-
 auto_height = function() {
   var $section, $viewer;
   $section = $('#scrollable-sections');
@@ -310,17 +270,11 @@ auto_height = function() {
 };
 
 (function($) {
-  var f, feed_ul, item, _i, _len;
   $("#lhn-add-subscription").on('click', toggleAddBox);
   $('#quick-add-close').on('click', toggleAddBox);
   $("#add-feed").on('click', addFeed);
   $(".folder-toggle").click(function() {
     return toggle($(this).parent());
-  });
-  $("#viewer-refresh").click(function() {
-    return refreshFeed(currentFeedUrl, function(feed, favcionUrl) {
-      return showContent(feed.feedUrl);
-    });
   });
   $("#lhn-selectors-minimize").click(function() {
     return $("#lhn-selectors").toggleClass("section-minimized");
@@ -334,7 +288,6 @@ auto_height = function() {
   $('#settings-button-container').on('click', function() {
     return $('#settings-button-menu').toggle();
   });
-  $("#settings-button-menu .goog-menuitem-settings").on('click', showSettingsPage);
   $('#quickadd').bind('keypress', function(e) {
     var code;
     code = e.keyCode ? e.keyCode : e.which;
@@ -362,20 +315,6 @@ auto_height = function() {
       var fs;
       return fs = filesystem;
     }, errorHandler);
-  }
-  feed_ul = $("#sub-tree-item-0-main ul:first");
-  for (_i = 0, _len = subscriptions.length; _i < _len; _i++) {
-    item = subscriptions[_i];
-    if (item.type === "rss" && (item.categories === void 0 || item.categories.length === 0)) {
-      feed_ul.append(generateFeed(item));
-    }
-    if (item.type === "folder") {
-      f = generateFolder(item);
-      feed_ul.append(f);
-      if (item.title === start_folder) {
-        f.find("a:first").click();
-      }
-    }
   }
   return $("body").bind('keypress', function(e) {
     var code;

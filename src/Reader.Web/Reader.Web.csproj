@@ -142,8 +142,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\FeedFolderController.cs" />
-    <Compile Include="Controllers\FeedItemController.cs" />
+    <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\RssController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -152,6 +151,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\style.css">
+      <DependentUpon>style.less</DependentUpon>
+    </Content>
+    <Content Include="Content\css\style.min.css">
+      <DependentUpon>style.less</DependentUpon>
+    </Content>
     <Content Include="Content\fonts\glyphiconshalflings-regular.svg" />
     <Content Include="Content\js\angular-resource.js" />
     <Content Include="Content\js\angular.js" />
@@ -211,6 +216,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <Content Include="x86\SQLite.Interop.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\js\directives\" />
@@ -228,6 +236,16 @@
     <Content Include="Content\js\app.coffee" />
     <Content Include="Content\js\controllers\HomeController.coffee" />
     <Content Include="media\js\greader.coffee" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YangKai.RssReader.Domain\YangKai.RssReader.Domain.csproj">
+      <Project>{E08DB568-1505-49F5-834D-EA4B9C0ADC3B}</Project>
+      <Name>YangKai.RssReader.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YangKai.RssReader.Services\YangKai.RssReader.Services.csproj">
+      <Project>{131F6623-FAF7-46B1-B66A-97FEE684398B}</Project>
+      <Name>YangKai.RssReader.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
