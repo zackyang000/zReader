@@ -15,7 +15,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Temp", "Temp", "{BE26A395-4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{1DB33DE8-6325-4BE9-B5B3-3497964F136D}"
 	ProjectSection(SolutionItems) = preProject
+		Interop.ADODB.dll = Interop.ADODB.dll
+		Interop.CDO.dll = Interop.CDO.dll
+		RSS.NET.dll = RSS.NET.dll
 		System.Data.SQLite.dll = System.Data.SQLite.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{10C3597D-D6F4-4DA8-A147-CF0B11F73B33}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
 Global
@@ -49,9 +59,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{E08DB568-1505-49F5-834D-EA4B9C0ADC3B} = {BE26A395-4A62-4AF8-BAC9-161FBDB9ABAC}
 		{80C2FE7D-06DF-417B-AE19-7CEF39A604FA} = {BE26A395-4A62-4AF8-BAC9-161FBDB9ABAC}
 		{7E699321-FD5A-4C60-9D1D-52209D3D898B} = {BE26A395-4A62-4AF8-BAC9-161FBDB9ABAC}
 		{131F6623-FAF7-46B1-B66A-97FEE684398B} = {BE26A395-4A62-4AF8-BAC9-161FBDB9ABAC}
+		{E08DB568-1505-49F5-834D-EA4B9C0ADC3B} = {BE26A395-4A62-4AF8-BAC9-161FBDB9ABAC}
 	EndGlobalSection
 EndGlobal

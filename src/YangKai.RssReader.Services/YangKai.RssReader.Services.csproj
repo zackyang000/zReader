@@ -34,16 +34,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Interop.ADODB">
-      <HintPath>..\YangKai.RssReader.Client\Lib\Interop.ADODB.dll</HintPath>
+    <Reference Include="Interop.ADODB, Version=2.8.0.0, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\Interop.ADODB.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="Interop.CDO">
-      <HintPath>..\YangKai.RssReader.Client\Lib\Interop.CDO.dll</HintPath>
+      <HintPath>..\Interop.CDO.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="RSS.NET">
-      <HintPath>..\YangKai.RssReader.Client\Lib\RSS.NET.dll</HintPath>
+      <HintPath>..\RSS.NET.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
