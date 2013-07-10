@@ -7,6 +7,7 @@ namespace Reader.Domain
 {
     public class RssFeedFolders
     {
-
+        public string Id { get; set; }
+        public string Name { get; set; }
     }
 }
