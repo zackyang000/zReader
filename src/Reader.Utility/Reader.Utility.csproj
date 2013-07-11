@@ -54,10 +54,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HttpContextLifetimeManager.cs" />
+    <Compile Include="MyInstanceLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Reader.Infrastructure\Reader.Infrastructure.csproj">
+      <Project>{BD3480E8-F15E-4002-A8A4-C2884FB640C4}</Project>
+      <Name>Reader.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

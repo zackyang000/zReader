@@ -67,6 +67,10 @@
       <Project>{BD3480E8-F15E-4002-A8A4-C2884FB640C4}</Project>
       <Name>Reader.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\YangKai.RssReader.Repositories\YangKai.RssReader.Repositories.csproj">
+      <Project>{7e699321-fd5a-4c60-9d1d-52209d3d898b}</Project>
+      <Name>YangKai.RssReader.Repositories</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

@@ -7,7 +7,7 @@ namespace Reader.Domain
 {
     public class Rss
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string Site { get; set; }
         public string SiteUrl { get; set; }
         public string Channel { get; set; }

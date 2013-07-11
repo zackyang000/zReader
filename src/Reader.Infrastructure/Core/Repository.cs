@@ -10,12 +10,12 @@ using Reader.Infrastructure;
 
 namespace Reader.Infrastructure
 {
-    public abstract class Repository<TEntity, TEntityId>
+    public class Repository<TEntity, TEntityId>
         where TEntity : class
     {
         protected readonly DbContext _context;
 
-        protected Repository(ReaderContext context)
+        public Repository(ReaderContext context)
         {
             _context = context;
         }

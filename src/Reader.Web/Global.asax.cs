@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Microsoft.Practices.Unity;
+using Reader.Infrastructure;
+using Reader.Utility;
 
 namespace Reader.Web
 {
@@ -24,6 +28,10 @@ namespace Reader.Web
 
             GlobalConfiguration.Configuration.Formatters.Clear();
             GlobalConfiguration.Configuration.Formatters.Add(new JsonMediaTypeFormatter());
+
+            var path = ConfigurationManager.AppSettings["ContainerConfigPath"];
+            IUnityContainer container = UnityContainerHelper.Create(path);
+            InstanceLocator.SetLocator(new MyInstanceLocator(container));
         }
     }
 }
