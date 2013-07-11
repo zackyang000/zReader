@@ -1,54 +1,24 @@
-﻿using System.ComponentModel.Composition;
-using Newegg.Contract.Infrastructure;
-using Newegg.Contract.Model;
+﻿using System;
+using Reader.Domain;
+using Reader.Infrastructure;
 
-namespace Newegg.Contract.ServiceProxy
+namespace Reader.Services
 {
     public static class Repository
     {
-        public static GuidRepository<Rule> Rule
+        public static Repository<Rss, Guid> Rss
         {
-            get { return InstanceLocator.Current.GetInstance<GuidRepository<Rule>>(); }
+            get { return InstanceLocator.Current.GetInstance<Repository<Rss,Guid>>(); }
         }
 
-        public static GuidRepository<Role> Role
+        public static Repository<RssFeedFolders, Guid> RssFeedFolders
         {
-            get { return InstanceLocator.Current.GetInstance<GuidRepository<Role>>(); }
+            get { return InstanceLocator.Current.GetInstance<Repository<RssFeedFolders, Guid>>(); }
         }
 
-        public static GuidRepository<User> User
+        public static Repository<RssFeedItems, Guid> RssFeedItems
         {
-            get { return InstanceLocator.Current.GetInstance<GuidRepository<User>>(); }
-        }
-
-        public static GuidRepository<Template> Template
-        {
-            get { return InstanceLocator.Current.GetInstance<GuidRepository<Template>>(); }
-        }
-
-        public static GuidRepository<Document> Document
-        {
-            get { return InstanceLocator.Current.GetInstance<GuidRepository<Document>>(); }
-        }
-
-        public static GuidRepository<DocumentConfig> DocumentConfig
-        {
-            get { return InstanceLocator.Current.GetInstance<GuidRepository<DocumentConfig>>(); }
-        }
-
-        public static GuidRepository<Condition> Condition
-        {
-            get { return InstanceLocator.Current.GetInstance<GuidRepository<Condition>>(); }
-        }
-
-        public static GuidRepository<ContractInfo> Contract
-        {
-            get { return InstanceLocator.Current.GetInstance<GuidRepository<ContractInfo>>(); }
-        }
-
-        public static GuidRepository<Event> Event
-        {
-            get { return InstanceLocator.Current.GetInstance<GuidRepository<Event>>(); }
+            get { return InstanceLocator.Current.GetInstance<Repository<RssFeedItems, Guid>>(); }
         }
     }
 }

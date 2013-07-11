@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Web;
 using Microsoft.Practices.Unity;
 
-namespace Newegg.Contract.Web.Mvc
+namespace Reader.Utility
 {
     /// <summary>
     /// 当使用多线程时,因为HttpContext.Current为null.

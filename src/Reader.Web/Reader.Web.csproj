@@ -234,6 +234,10 @@
     <Content Include="media\js\greader.coffee" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Reader.Utility\Reader.Utility.csproj">
+      <Project>{45ebbce9-7c83-4b04-a822-e51ef21f784b}</Project>
+      <Name>Reader.Utility</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YangKai.RssReader.Domain\YangKai.RssReader.Domain.csproj">
       <Project>{E08DB568-1505-49F5-834D-EA4B9C0ADC3B}</Project>
       <Name>YangKai.RssReader.Domain</Name>
@@ -249,6 +253,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\Default.pubxml" />
+    <Content Include="unity.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
