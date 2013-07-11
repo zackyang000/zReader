@@ -8,6 +8,7 @@ using Reader.Domain;
 using Reader.Infrastructure;
 using Reader.Services;
 using Reader.Utility;
+using YangKai.RssReader.Services;
 
 namespace Reader.Spider
 {
@@ -19,7 +20,12 @@ namespace Reader.Spider
             IUnityContainer container = UnityContainerHelper.Create(path);
             InstanceLocator.SetLocator(new MyInstanceLocator(container));
 
-            Repository.Rss.Add(new Rss() {});
+            var i = 1;
+                    Console.Write("第[" + i + "]次 开始于" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
+                    var downloader = new RssDownloader();
+                    downloader.LogAction += (level, msg) => Console.WriteLine(level + "   " + msg);
+                    downloader.Start();
         }
     }
 }
