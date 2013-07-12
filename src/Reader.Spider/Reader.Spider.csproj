@@ -45,6 +45,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
+    <Reference Include="RSS.NET, Version=0.86.4585.21094, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\RSS.NET.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -55,8 +59,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PageDownloader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RssDownloader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -81,10 +87,6 @@
     <ProjectReference Include="..\Reader.Utility\Reader.Utility.csproj">
       <Project>{45ebbce9-7c83-4b04-a822-e51ef21f784b}</Project>
       <Name>Reader.Utility</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YangKai.RssReader.Services\YangKai.RssReader.Services.csproj">
-      <Project>{131F6623-FAF7-46B1-B66A-97FEE684398B}</Project>
-      <Name>YangKai.RssReader.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

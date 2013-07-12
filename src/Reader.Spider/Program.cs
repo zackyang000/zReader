@@ -8,7 +8,6 @@ using Reader.Domain;
 using Reader.Infrastructure;
 using Reader.Services;
 using Reader.Utility;
-using YangKai.RssReader.Services;
 
 namespace Reader.Spider
 {
@@ -26,6 +25,8 @@ namespace Reader.Spider
                     var downloader = new RssDownloader();
                     downloader.LogAction += (level, msg) => Console.WriteLine(level + "   " + msg);
                     downloader.Start();
+
+            Console.ReadLine();
         }
     }
 }
