@@ -16,7 +16,7 @@ namespace Reader.Spider
         private static void Main(string[] args)
         {
             var path = ConfigurationManager.AppSettings["ContainerConfigPath"];
-            IUnityContainer container = UnityContainerHelper.Create(path);
+            var container = UnityContainerHelper.Create(path);
             InstanceLocator.SetLocator(new MyInstanceLocator(container));
 
             var i = 1;
