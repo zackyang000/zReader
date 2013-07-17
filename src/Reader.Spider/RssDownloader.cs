@@ -28,7 +28,8 @@ namespace Reader.Spider
        {
            foreach (var item in _rssCollection)
            {
-               Task.Factory.StartNew(() => Run(item));
+               Run(item);
+               //Task.Factory.StartNew(() => Run(item));
            }
        }
 
