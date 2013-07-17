@@ -28,8 +28,7 @@ namespace Reader.Spider
        {
            foreach (var item in _rssCollection)
            {
-               Run(item);
-               //Task.Factory.StartNew(() => Run(item));
+               Task.Factory.StartNew(() => Run(item));
            }
        }
 
@@ -60,7 +59,7 @@ namespace Reader.Spider
            }
            catch (WebException ex)
            {
-               LogItem(MessageLevel.Error, item, "Error:{0}", ex.Message);
+               LogItem(MessageLevel.Warning, item, "Error:{0}", ex.Message);
            }
            catch (Exception ex)
            {
