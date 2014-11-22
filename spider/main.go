@@ -1,38 +1,13 @@
-/*package main
-
-import (
-"io/ioutil";
-"net/http";
-"fmt"
-)
-
-func main() {
-  response, err := http.Get("http://zhihu.com/rss")
-  if err != nil {
-    fmt.Printf("Error: %s\n", err)
-  } else {
-    defer response.Body.Close()
-    content, err := ioutil.ReadAll(response.Body)
-    if err != nil {
-      fmt.Printf("%s", err)
-    } else {
-        fmt.Printf("%s", string(content))
-    }
-  }
-}
-*/
-
 package main
 
 import (
   "fmt"
   rss "github.com/jteeuwen/go-pkg-rss"
   "os"
-  "time"
 )
 
 func main() {
-  PollFeed("http://blog.case.edu/news/feed.atom", 30)
+  PollFeed("http://zhihu.com/rss", 30)
 }
 
 func PollFeed(uri string, timeout int) {
@@ -41,17 +16,20 @@ func PollFeed(uri string, timeout int) {
   for {
     if err := feed.Fetch(uri, nil); err != nil {
       fmt.Fprintf(os.Stderr, "[e] %s: %s", uri, err)
-      return
     }
-
-    <-time.After(time.Duration(feed.SecondsTillUpdate()))
   }
 }
 
 func chanHandler(feed *rss.Feed, newchannels []*rss.Channel) {
   fmt.Printf("%d new channel(s) in %s\n", len(newchannels), feed.Url)
+  for i := 0; i < len(newchannels); i++ {
+    fmt.Printf("%s channel: %s\n", feed.Url, newchannels[i].Title)
+  }
 }
 
 func itemHandler(feed *rss.Feed, ch *rss.Channel, newitems []*rss.Item) {
   fmt.Printf("%d new item(s) in %s\n", len(newitems), feed.Url)
+  for i := 0; i < len(newitems); i++ {
+    fmt.Printf("%s item: %s\n", feed.Url, newitems[i].Title)
+  }
 }
