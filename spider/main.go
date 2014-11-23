@@ -2,20 +2,19 @@ package main
 
 import (
   "fmt"
-  rss "github.com/jteeuwen/go-pkg-rss"
   "os"
+  rss "github.com/jteeuwen/go-pkg-rss"
 )
 
 func main() {
-  PollFeed("http://zhihu.com/rss", 30)
-}
+  list := []string{
+    "http://zhihu.com/rss",
+  }
+  for _, uri := range list {
+    feed := rss.New(5, true, chanHandler, itemHandler)
 
-func PollFeed(uri string, timeout int) {
-  feed := rss.New(timeout, true, chanHandler, itemHandler)
-
-  for {
     if err := feed.Fetch(uri, nil); err != nil {
-      fmt.Fprintf(os.Stderr, "[e] %s: %s", uri, err)
+      fmt.Printf("Get %s has been error: %s", uri, err)
     }
   }
 }
