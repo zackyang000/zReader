@@ -3,9 +3,8 @@ package main
 import (
   "fmt"
   "gopkg.in/mgo.v2"
-  //"gopkg.in/mgo.v2/bson"
+  "gopkg.in/mgo.v2/bson"
   rss "github.com/jteeuwen/go-pkg-rss"
-  iconv "github.com/djimenez/iconv-go"
 )
 type Person struct {
         Name string
@@ -40,18 +39,16 @@ func itemHandler(feed *rss.Feed, ch *rss.Channel, newitems []*rss.Item) {
   session.SetMode(mgo.Monotonic, true)
   c := session.DB("reader").C("items")
   for _, item := range newitems {
-    item.Title, _ = iconv.ConvertString(item.Title, "gb2312", "utf-8")
     err = c.Insert(item)
     if err != nil {
       fmt.Printf("Error: mongoDB - %s", err)
     }
-    /*
+
     item := rss.Item{}
-    err = c.Find(bson.M{"Title": "1"}).One(&item)
+    err = c.Find(bson.M{"id": ""}).One(&item)
     if err != nil {
       fmt.Printf("Error: mongoDB - %s", err)
     }
     fmt.Println("Title:", item.Title)
-    */
   }
 }
