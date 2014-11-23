@@ -2,33 +2,56 @@ package main
 
 import (
   "fmt"
-  "os"
+  "gopkg.in/mgo.v2"
+  //"gopkg.in/mgo.v2/bson"
   rss "github.com/jteeuwen/go-pkg-rss"
+  iconv "github.com/djimenez/iconv-go"
 )
-
+type Person struct {
+        Name string
+        Phone string
+}
 func main() {
   list := []string{
     "http://zhihu.com/rss",
+    "http://feed.zackyang.com/articles.xml",
   }
   for _, uri := range list {
     feed := rss.New(5, true, chanHandler, itemHandler)
 
     if err := feed.Fetch(uri, nil); err != nil {
-      fmt.Printf("Get %s has been error: %s", uri, err)
+      fmt.Printf("Error: %s - %s", uri, err)
     }
   }
 }
 
 func chanHandler(feed *rss.Feed, newchannels []*rss.Channel) {
-  fmt.Printf("%d new channel(s) in %s\n", len(newchannels), feed.Url)
-  for i := 0; i < len(newchannels); i++ {
-    fmt.Printf("%s channel: %s\n", feed.Url, newchannels[i].Title)
-  }
+  fmt.Printf("%d channel(s) in %s\n", len(newchannels), feed.Url)
 }
 
 func itemHandler(feed *rss.Feed, ch *rss.Channel, newitems []*rss.Item) {
   fmt.Printf("%d new item(s) in %s\n", len(newitems), feed.Url)
-  for i := 0; i < len(newitems); i++ {
-    fmt.Printf("%s item: %s\n", feed.Url, newitems[i].Title)
+
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+    fmt.Printf("Error: mongoDB - %s", err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  c := session.DB("reader").C("items")
+  for _, item := range newitems {
+    item.Title, _ = iconv.ConvertString(item.Title, "gb2312", "utf-8")
+    err = c.Insert(item)
+    if err != nil {
+      fmt.Printf("Error: mongoDB - %s", err)
+    }
+    /*
+    item := rss.Item{}
+    err = c.Find(bson.M{"Title": "1"}).One(&item)
+    if err != nil {
+      fmt.Printf("Error: mongoDB - %s", err)
+    }
+    fmt.Println("Title:", item.Title)
+    */
   }
 }
