@@ -2,6 +2,7 @@ package main
 
 import (
   "fmt"
+  "time"
   "gopkg.in/mgo.v2"
   "gopkg.in/mgo.v2/bson"
   rss "github.com/jteeuwen/go-pkg-rss"
@@ -39,16 +40,23 @@ func main() {
     Resource{ Url: "http://feed.zackyang.com/articles.xml" },
   }
   */
-
-  resources := getResources()
-
-  // 获取所有订阅内容(并行)
-  for _, resource := range resources {
-    feed := rss.New(5, true, channelHandler, itemHandler)
-    if err := feed.Fetch(resource.Url, nil); err != nil {
-      fmt.Printf("Error: %s - %s", resource.Url, err)
+  for {
+    resources := getResources()
+    resources = []Resource{
+      Resource{ Url: "http://zhihu.com/rss" },
+      Resource{ Url: "http://feed.zackyang.com/articles.xml" },
     }
+    // 获取所有订阅内容(并行)
+    for _, resource := range resources {
+      feed := rss.New(5, true, channelHandler, itemHandler)
+      if err := feed.Fetch(resource.Url, nil); err != nil {
+        fmt.Printf("Error: %s - %s", resource.Url, err)
+      }
+    }
+
+    <-time.After(time.Minute * 10)
   }
+
 }
 
 // 获取所有订阅URL
