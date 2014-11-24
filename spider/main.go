@@ -46,7 +46,7 @@ func main() {
       Resource{ Url: "http://zhihu.com/rss" },
       Resource{ Url: "http://feed.zackyang.com/articles.xml" },
     }
-    // 获取所有订阅内容(并行)
+    // 获取所有订阅内容
     for _, resource := range resources {
       feed := rss.New(5, true, channelHandler, itemHandler)
       if err := feed.Fetch(resource.Url, nil); err != nil {
@@ -81,17 +81,27 @@ func itemHandler(feed *rss.Feed, ch *rss.Channel, newitems []*rss.Item) {
   c := session.DB("reader").C("items")
 
   for _, item := range newitems {
+    item := Item{
+      Title : item.Title,
+      Description : item.Description,
+      Link : item.Links[0].Href,
+      Author : item.Author.Name,
+      Date : item.PubDate,
+    }
     err := c.Insert(item)
     if err != nil {
       fmt.Printf("Error: mongoDB - %s", err)
     }
 
+
+    /*
     item := rss.Item{}
     err = c.Find(bson.M{"id": ""}).One(&item)
     if err != nil {
       fmt.Printf("Error: mongoDB - %s", err)
     }
     fmt.Println("Title:", item.Title)
+    */
   }
 }
 
