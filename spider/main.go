@@ -6,10 +6,7 @@ import (
   "gopkg.in/mgo.v2/bson"
   rss "github.com/jteeuwen/go-pkg-rss"
 )
-type Person struct {
-        Name string
-        Phone string
-}
+
 func main() {
   list := []string{
     "http://zhihu.com/rss",
