@@ -1,4 +1,4 @@
-Reader
+zReader
 ======
 
-Local Google Reader.
+Looks like GoogleReader.
