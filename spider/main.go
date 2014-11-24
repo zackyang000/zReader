@@ -33,34 +33,47 @@ type User struct {
 }
 
 func main() {
-  list := []Resource{
+  /*
+  resources := []Resource{
     Resource{ Url: "http://zhihu.com/rss" },
     Resource{ Url: "http://feed.zackyang.com/articles.xml" },
   }
-  for _, resource := range list {
-    feed := rss.New(5, true, chanHandler, itemHandler)
+  */
+
+  resources := getResources()
+
+  // 获取所有订阅内容(并行)
+  for _, resource := range resources {
+    feed := rss.New(5, true, channelHandler, itemHandler)
     if err := feed.Fetch(resource.Url, nil); err != nil {
       fmt.Printf("Error: %s - %s", resource.Url, err)
     }
   }
 }
 
-func chanHandler(feed *rss.Feed, newchannels []*rss.Channel) {
-  fmt.Printf("%d channel(s) in %s\n", len(newchannels), feed.Url)
+// 获取所有订阅URL
+func getResources() []Resource {
+  session := createSession()
+  defer session.Close()
+  c := session.DB("reader").C("resource")
+  resources := []Resource{}
+  c.Find(bson.M{}).Iter().All(&resources)
+  return resources
+}
+
+func channelHandler(feed *rss.Feed, newchannels []*rss.Channel) {
+  fmt.Printf("Get %d channel(s) in %s\n", len(newchannels), feed.Url)
 }
 
 func itemHandler(feed *rss.Feed, ch *rss.Channel, newitems []*rss.Item) {
-  fmt.Printf("%d new item(s) in %s\n", len(newitems), feed.Url)
+  fmt.Printf("Get %d new item(s) in %s\n", len(newitems), feed.Url)
 
-  session, err := mgo.Dial("127.0.0.1")
-  if err != nil {
-    fmt.Printf("Error: mongoDB - %s", err)
-  }
+  session := createSession()
   defer session.Close()
-  session.SetMode(mgo.Monotonic, true)
   c := session.DB("reader").C("items")
+
   for _, item := range newitems {
-    err = c.Insert(item)
+    err := c.Insert(item)
     if err != nil {
       fmt.Printf("Error: mongoDB - %s", err)
     }
@@ -72,4 +85,14 @@ func itemHandler(feed *rss.Feed, ch *rss.Channel, newitems []*rss.Item) {
     }
     fmt.Println("Title:", item.Title)
   }
+}
+
+// 建立数据库连接
+func createSession() *mgo.Session {
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+    fmt.Printf("Error: mongoDB - %s", err)
+  }
+  session.SetMode(mgo.Monotonic, true)
+  return session
 }
