@@ -7,16 +7,40 @@ import (
   rss "github.com/jteeuwen/go-pkg-rss"
 )
 
-func main() {
-  list := []string{
-    "http://zhihu.com/rss",
-    "http://feed.zackyang.com/articles.xml",
-  }
-  for _, uri := range list {
-    feed := rss.New(5, true, chanHandler, itemHandler)
+type Resource struct {
+  Url string
+}
 
-    if err := feed.Fetch(uri, nil); err != nil {
-      fmt.Printf("Error: %s - %s", uri, err)
+type Item struct {
+  Title string
+  Description string
+  Link string
+  Author string
+  Date string
+}
+
+type User struct {
+  Name string
+  Folders struct {
+    Name string
+    Order int
+    Feeds struct {
+      Url string
+      Name string
+      Order int
+    }
+  }
+}
+
+func main() {
+  list := []Resource{
+    Resource{ Url: "http://zhihu.com/rss" },
+    Resource{ Url: "http://feed.zackyang.com/articles.xml" },
+  }
+  for _, resource := range list {
+    feed := rss.New(5, true, chanHandler, itemHandler)
+    if err := feed.Fetch(resource.Url, nil); err != nil {
+      fmt.Printf("Error: %s - %s", resource.Url, err)
     }
   }
 }
