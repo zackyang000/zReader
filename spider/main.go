@@ -70,11 +70,11 @@ func getResources() []Resource {
 }
 
 func channelHandler(feed *rss.Feed, newchannels []*rss.Channel) {
-  fmt.Printf("Get %d channel(s) in %s\n", len(newchannels), feed.Url)
+  //fmt.Printf("Get %d channel(s) in %s\n", len(newchannels), feed.Url)
 }
 
 func itemHandler(feed *rss.Feed, ch *rss.Channel, newitems []*rss.Item) {
-  fmt.Printf("Get %d new item(s) in %s\n", len(newitems), feed.Url)
+  //fmt.Printf("Get %d new item(s) in %s\n", len(newitems), feed.Url)
 
   session := createSession()
   defer session.Close()
@@ -96,7 +96,7 @@ func itemHandler(feed *rss.Feed, ch *rss.Channel, newitems []*rss.Item) {
       if err != nil {
         fmt.Printf("Error: mongoDB - %s\n", err)
       }
-      fmt.Printf("New: %s\n", item.Title)
+      fmt.Printf("[%s][%s] %s\n", time.Now().Format("2000-01-01 00:00"), ch.Title, item.Title)
     }
   }
 }
