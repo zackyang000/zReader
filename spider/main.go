@@ -88,20 +88,16 @@ func itemHandler(feed *rss.Feed, ch *rss.Channel, newitems []*rss.Item) {
       Author : item.Author.Name,
       Date : item.PubDate,
     }
-    err := c.Insert(item)
-    if err != nil {
-      fmt.Printf("Error: mongoDB - %s", err)
-    }
 
-
-    /*
-    item := rss.Item{}
-    err = c.Find(bson.M{"id": ""}).One(&item)
-    if err != nil {
-      fmt.Printf("Error: mongoDB - %s", err)
+    //判断是否已存在
+    count, _ := c.Find(bson.M{"link": item.Link}).Count()
+    if count == 0 {
+      err := c.Insert(item)
+      if err != nil {
+        fmt.Printf("Error: mongoDB - %s\n", err)
+      }
+      fmt.Printf("New: %s\n", item.Title)
     }
-    fmt.Println("Title:", item.Title)
-    */
   }
 }
 
