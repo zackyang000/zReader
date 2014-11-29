@@ -1,0 +1,94 @@
+<!doctype html>
+<html class="no-js" ng-controller="MainCtrl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title ng-bind="title + ' | ' + config.site.name">oading...L</title>
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <style>[ng-cloak] {display: none;}</style>
+</head>
+<body>
+
+<div class="loadingbox" ng-show="loading">{{'global.loading' | translate}}...</div>
+
+<!--=== Top ===-->
+<div class="top" ng-controller="TopCtrl">
+    <div class="container">
+        <ul class="loginbar pull-right">
+            <li>
+                <i class="fa fa-globe"></i>
+                <a>{{'global.languages' | translate}}</a>
+                <ul class="lenguages">
+                    <li ng-class="{ active: use=='en-us' }">
+                        <a href="#" ng-click="changeLanguage('en-us')">
+                            English
+                            <i class="fa fa-check" ng-show="use=='en-us'"></i>
+                        </a>
+                    </li>
+                    <li ng-class="{ active: use=='zh-cn' }">
+                        <a href="#" ng-click="changeLanguage('zh-cn')">
+                            简体中文
+                            <i class="fa fa-check" ng-show="use=='zh-cn'"></i>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="devider"></li>
+            <li>
+                <a href="{{ ::config.url.admin }}">
+                    <span ng-show="account">{{account.name}}</span>
+                    <span ng-hide="account">Admin</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--=== End Top ===-->
+
+<!--=== Header ===-->
+<div class="header" ng-controller="HeaderCtrl">
+    <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <h1>
+                    <a class="navbar-brand" href="/">
+                        <img id="logo-header" src="/img/logo.gif" alt="Logo">
+                        {{::config.site.name}}
+                    </a>
+                </h1>
+            </div>
+            <div class="collapse navbar-collapse navbar-responsive-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li ng-class="{active:isActiveCategory(category)}" ng-repeat="category in categories | orderBy:'-main'">
+                        <a ng-href="/" ng-show="category.main">{{category.name | i18n}}</a>
+                        <a ng-href="/list/{{category.url}}" ng-hide="category.main">{{category.name | i18n}}</a>
+                    </li>
+                    <li ng-class="{active:isActive('/archives')}"><a ng-href="/archives">{{'global.menu.archive' | translate}}</a></li>
+                    <li ng-class="{active:isActive('/gallery')}"><a ng-href="/gallery">{{'global.menu.gallery' | translate}}</a></li>
+                    <li ng-class="{active:isActive('/guestbook')}"><a ng-href="/guestbook">{{'global.menu.board' | translate}}</a></li>
+                    <li ng-class="{active:isActive('/about')}"><a ng-href="/about">{{'global.menu.about' | translate}}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--=== End Header ===-->
+
+<!--=== Main ===-->
+<div class="body" ng-view></div>
+<!--=== End Main ===-->
+
+
+<!--STYLES--><!--STYLES END-->
+<!--SCRIPTS--><!--SCRIPTS END-->
+<!--LIVERELOAD-->
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "js": [
+    "_dist/client/public/vendor/angular/*.js",
+    "_dist/client/public/vendor/angular-animate/**/*.js",
+    "_dist/client/public/vendor/angular-cookie/**/*.js",
+    "_dist/client/public/vendor/angular-cookies/**/*.js",
+    "_dist/client/public/vendor/angular-route/**/*.js",
+    "_dist/client/public/vendor/angular-sanitize/**/*.js",
+    "_dist/client/public/config/**/*.js",
+    "_dist/client/public/common/**/*.js",
+    "_dist/client/public/app/**/*.js",
+    "_dist/client/public/templates.js"
+  ],
+  "css":[
+  ]
+}
