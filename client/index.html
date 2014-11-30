@@ -1,94 +1,299 @@
-<!doctype html>
-<html class="no-js" ng-controller="MainCtrl">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title ng-bind="title + ' | ' + config.site.name">oading...L</title>
-    <link rel="shortcut icon" href="/img/favicon.ico" />
-    <style>[ng-cloak] {display: none;}</style>
-</head>
-<body>
+<!DOCTYPE html>
+<html ng-cloak ng-app="app">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Google 阅读器</title>
 
-<div class="loadingbox" ng-show="loading">{{'global.loading' | translate}}...</div>
+        <link type="text/css" rel="stylesheet" href="media/css/main.css">
+        <link type="text/css" rel="stylesheet" href="media/css/scroll.css">
+        <link type="text/css" rel="stylesheet" href="media/css/scroll_large_density.css" disabled="disabled" />
+        <link type="text/css" rel="stylesheet" href="media/css/scroll_medium_density.css" disabled="disabled" />
+        <link type="text/css" rel="stylesheet" href="media/css/scroll_small_density.css" />
+        <link type="text/css" rel="stylesheet" href="/Content/css/style.css" />
+    </head>
+    <body ng-controller="HomeController">
 
-<!--=== Top ===-->
-<div class="top" ng-controller="TopCtrl">
-    <div class="container">
-        <ul class="loginbar pull-right">
-            <li>
-                <i class="fa fa-globe"></i>
-                <a>{{'global.languages' | translate}}</a>
-                <ul class="lenguages">
-                    <li ng-class="{ active: use=='en-us' }">
-                        <a href="#" ng-click="changeLanguage('en-us')">
-                            English
-                            <i class="fa fa-check" ng-show="use=='en-us'"></i>
-                        </a>
-                    </li>
-                    <li ng-class="{ active: use=='zh-cn' }">
-                        <a href="#" ng-click="changeLanguage('zh-cn')">
-                            简体中文
-                            <i class="fa fa-check" ng-show="use=='zh-cn'"></i>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="devider"></li>
-            <li>
-                <a href="{{ ::config.url.admin }}">
-                    <span ng-show="account">{{account.name}}</span>
-                    <span ng-hide="account">Admin</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
-<!--=== End Top ===-->
-
-<!--=== Header ===-->
-<div class="header" ng-controller="HeaderCtrl">
-    <div class="navbar navbar-default" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <h1>
-                    <a class="navbar-brand" href="/">
-                        <img id="logo-header" src="/img/logo.gif" alt="Logo">
-                        {{::config.site.name}}
-                    </a>
-                </h1>
+        <div id="gb">
+            <div id="gbw">
+                <div id="gbzw">
+                    <div id="gbz">
+                        <ol id="gbzc" class="gbtc">
+                            <li class="gbt"><a class="gbzt"><span class="gbtb2"></span><span class="gbts">Powered by Zack Yang</span></a></li>
+                        </ol>
+                    </div>
+                </div>
+                <div id="gbq">
+                    <div id="gbq1" class="gbt">
+                        <a class="gbqla" href="#" onclick="gbar.logger.il(39)" title="阅读器"><table id="gbqlt"><tbody><tr><td id="gbqlw" class="gbgt"><span id="gbql"></span></td></tr></tbody></table><div class="gbqlca"></div></a>
+                    </div>
+                    <div id="gbq2" class="gbt">
+                        <div id="gbqfw">
+                            <form id="gbqf" name="gbqf" method="get" onsubmit="gbar.logger.il(31);return executeSearch();" style="max-width: 512px;">
+                                <fieldset class="gbqff" id="gbqff" style="max-width: 512px;">
+                                    <legend class="gbxx">搜索阅读器</legend>
+                                    <div id="gbfwa" class="gbqfwa ">
+                                        <div id="gbqfqw" class="gbqfqw">
+                                            <div id="gbqfaa"></div>
+                                            <div id="gbqfqwb" class="gbqfqwb">
+                                                <input id="gbqfq" class="gbqfif" name="q" type="text" autocomplete="off" value="" placeholder="搜索阅读器">
+                                            </div>
+                                            <div id="gbqfab">
+                                            </div>
+                                            <div class="goog-inline-block search-restrict" title="" role="listbox" style="-webkit-user-select: none;" tabindex="0" aria-haspopup="false">
+                                                <div class="goog-inline-block search-restrict-caption">
+                                                </div>
+                                                <div class="goog-inline-block search-restrict-dropdown">&nbsp;</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div id="gbqfbw" style="">
+                                    <button id="gbqfb" aria-label="Google 搜索" class="gbqfb">
+                                        <span class="gbqfi"></span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="collapse navbar-collapse navbar-responsive-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li ng-class="{active:isActiveCategory(category)}" ng-repeat="category in categories | orderBy:'-main'">
-                        <a ng-href="/" ng-show="category.main">{{category.name | i18n}}</a>
-                        <a ng-href="/list/{{category.url}}" ng-hide="category.main">{{category.name | i18n}}</a>
-                    </li>
-                    <li ng-class="{active:isActive('/archives')}"><a ng-href="/archives">{{'global.menu.archive' | translate}}</a></li>
-                    <li ng-class="{active:isActive('/gallery')}"><a ng-href="/gallery">{{'global.menu.gallery' | translate}}</a></li>
-                    <li ng-class="{active:isActive('/guestbook')}"><a ng-href="/guestbook">{{'global.menu.board' | translate}}</a></li>
-                    <li ng-class="{active:isActive('/about')}"><a ng-href="/about">{{'global.menu.about' | translate}}</a></li>
-                </ul>
+            <div id="gbx3"></div>
+        </div>
+
+        <div class="message-area-container" id="message-area-container">
+            <div class="goog-inline-block">
+                <div class="jfk-butterBar" id="message-area"> </div>
             </div>
         </div>
-    </div>
-</div>
-<!--=== End Header ===-->
+        <div class="message-area-container hidden" id="loading-area-container">
+            <div class="goog-inline-block">
+                <div class="jfk-butterBar jfk-butterBar-shown jfk-butterBar-info" id="loading-area">正在加载...</div>
+            </div>
+        </div>
+        <div id="top-bar" class=" jfk" style="">
+            <a href="#" id="logo-container"><h1 id="logo"><span>Google Reader</span></h1></a>
+            <div id="search">
+                <input id="search-input" class="jfk-textinput" type="text">
+            </div>
+        </div>
+        <div id="quick-add-bubble-holder" class="hidden">
+            <span id="quick-add-instructions">输入供稿网址来添加订阅。</span>
+            <div id="quick-add-close"></div>
+            <div id="quick-add-input-div">
+                <input type="text" name="quickadd" id="quickadd" autocomplete="off" spellcheck="false">
+                <div role="wairole:button" tabindex="0" id="quick-add-btn" class="goog-button goog-button-base unselectable goog-inline-block goog-button-float-left goog-button-tight">
+                    <div class="goog-button-base-outer-box goog-inline-block">
+                        <div class="goog-button-base-inner-box goog-inline-block">
+                            <div class="goog-button-base-pos">
+                                <div class="goog-button-base-content">
+                                    <div class="goog-button-body" id="add-feed">添加</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="quick-add-helptext">例如，http://www.36kr.com/feed</div>
+        </div>
+        <!-- 主视图 -->
+        <div id="main">
+            <div id="nav">
+                <div id="logo-section"> <a id="logo-link" href="#">阅读器</a> </div>
+                <div id="lhn-add-subscription-section">
+                    <span id="lhn-add-subscription" class="jfk-button-primary jfk-button" role="button" style="-webkit-user-select: none;" tabindex="0">订阅</span>
+                </div>
+                <div id="scrollable-sections-holder">
+                    <div id="scrollable-sections" class="mouseout" style="height: 377.1999969482422px;">
+                        <div id="home-section">
+                            <div id="overview-selector" class="selector no-icon selected">
+                                <a href="#" class="link"><span class="text">主页</span></a>
+                            </div>
+                        </div>
+                        <div id="lhn-selectors" class="section lhn-section">
+                            <div id="lhn-selectors-minimize" class="section-button section-minimize"></div>
+                            <div class="lhn-section-primary">
+                                <div id="reading-list-selector" class="selector no-icon unread">
+                                    <a href="#" class="link"><span class="text"><span class="label">所有条目</span><span id="reading-list-unread-count" class="unread-count"></span></span></a>
+                                </div>
+                            </div>
+                            <div class="lhn-section-secondary">
+                                <div id="star-selector" class="selector">
+                                    <a href="#" class="link"><div class="selector-icon"></div><span class="text">加星标的条目</span></a>
+                                </div>
+                                <div id="trends-selector" class="selector">
+                                    <a href="#" class="link"><div class="selector-icon"></div><span class="text">趋势</span></a>
+                                </div>
+                                <div id="directory-selector" class="selector no-icon">
+                                    <a href="#" class="link"><span class="text">浏览其他内容</span></a>
+                                </div>
+                            </div>
+                            <div class="selectors-footer"></div>
+                        </div>
+                        <div id="lhn-recommendations" class="section lhn-section section-minimized">
+                            <div id="lhn-recommendations-minimize" class="section-button section-minimize"></div>
+                            <div id="lhn-recommendations-menubutton" class="section-button section-menubutton goog-menu-button goog-inline-block" aria-expanded="false" role="button" style="-webkit-user-select: none;" tabindex="0" aria-haspopup="true">
+                                <div class="goog-inline-block goog-menu-button-outer-box">
+                                    <div class="goog-inline-block goog-menu-button-inner-box">
+                                        <div class="goog-inline-block goog-menu-button-caption"> </div>
+                                        <div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="recommendations-tree-container" class="scroll-tree-container">
+                                <ul id="recommendations-tree" class="scroll-tree">
+                                    <li class="folder unselectable expanded" id="recs-tree-item-0-main">
+                                        <div class="toggle folder-toggle toggle-d-0"></div>
+                                        <a class="link lhn-section-primary" href="#" id="recs-tree-item-0-link"><div class="icon folder-icon icon-d-0" id="recs-tree-item-0-icon"></div><div class="name-text folder-name-text name-text-d-0 name folder-name name-d-0" id="recs-tree-item-0-name">探索</div><div class="unread-count folder-unread-count unread-count-d-0" id="recs-tree-item-0-unread-count"></div></a>
+                                        <ul class="lhn-section-secondary">
+                                            <li class="sub unselectable expanded" id="recs-tree-item-1-main">
+                                                <div class="toggle sub-toggle toggle-d-1 hidden"></div>
+                                                <a class="link" href="#" id="recs-tree-item-1-link"><div class="icon sub-icon icon-d-1" id="recs-tree-item-1-icon"></div><div class="name-text sub-name-text name-text-d-1 name sub-name name-d-1" id="recs-tree-item-1-name">推荐的条目</div><div class="unread-count sub-unread-count unread-count-d-1" id="recs-tree-item-1-unread-count"></div><div class="tree-item-action-container"><div id="recs-tree-item-1-action" class="action tree-item-action section-button section-menubutton goog-menu-button"></div></div></a>
+                                            </li>
+                                            <li class="folder unselectable collapsed" id="recs-tree-item-2-main">
+                                                <div class="toggle folder-toggle toggle-d-1">
+                                                </div>
+                                                <a class="link" href="#" id="recs-tree-item-2-link">
+                                                    <div class="icon folder-icon icon-d-1" id="recs-tree-item-2-icon"></div>
+                                                    <div class="name-text folder-name-text name-text-d-1 name folder-name name-d-1" id="recs-tree-item-2-name">推荐源</div>
+                                                    <div class="unread-count folder-unread-count unread-count-d-1" id="recs-tree-item-2-unread-count"></div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="lhn-section-footer">
+                                <a href="#" id="recommendations-tree-view-all">查看所有推荐的内容 »</a>
+                            </div>
+                        </div>
+                        <div id="lhn-subscriptions" class="section lhn-section  ">
+                            <div id="lhn-subscriptions-minimize" class="section-button section-minimize"></div>
+                            <div class="lhn-section-primary">
+                                <span id="sub-tree-header" class="unselectable">订阅</span>
+                            </div>
+                            <div id="sub-tree-container" class="scroll-tree-container lhn-section-secondary">
+                                <ul id="sub-tree" class="scroll-tree scroll-tree-show-updated">
+                                    <li class="folder unselectable expanded" id="sub-tree-item-0-main">
+                                        <div class="toggle folder-toggle toggle-d-0"></div>
+                                        <div ng-repeat="folder in feeds.Folders">
+                                            <div class="icon folder-icon"></div>
+                                            <div>{{folder.FolderName}}</div>
+                                            <ul ng-repeat="rss in folder.RssItems">
+                                                <li class="sub unselectable expanded unread">
+                                                    <div class="toggle sub-toggle toggle-d-2 hidden"></div>
+                                                    <a class="link" ng-click="showContent(rss,'rss')">
+                                                        <div style="background-image: url('/Content/img/default.gif'); background-size:16px 16px" class="icon sub-icon icon-d-2 favicon"></div>
+                                                        <div class="name-text name name-unread" ng-show="rss.Count>0">{{rss.Title}} ({{rss.Count}})</div>
+                                                        <div class="name-text name" ng-show="rss.Count==0">{{rss.Title}}</div>
+                                                        <div class="tree-item-action-container">
+                                                            <div class="action tree-item-action section-button section-menubutton goog-menu-button"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
 
-<!--=== Main ===-->
-<div class="body" ng-view></div>
-<!--=== End Main ===-->
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="scrollable-sections-top-shadow"></div>
+                    <div id="scrollable-sections-bottom-shadow"></div>
+                </div>
+            </div>
+            <div id="chrome" class="page-view">
+                <div id="chrome-viewer-container">
+                    <div id="chrome-viewer">
+                        <div>
+                            <div id="viewer-header">
+                                <div id="viewer-top-controls-container">
+                                    <div id="viewer-top-controls">
+                                        <div class="lhn-nav-button-container">
+                                        </div>
+                                        <div role="button" id="viewer-refresh" class="goog-inline-block jfk-button jfk-button-standard viewer-buttons" tabindex="0" title="刷新" style="-webkit-user-select: none;">
+                                            <img src="media/img/refresh.png" alt="" class="jfk-button-img">
+                                        </div>
+                                        <span id="mark-all-as-read-split-button">
+                                            <div role="button" class="goog-inline-block jfk-button jfk-button-standard jfk-button-collapse-right" tabindex="0" style="-webkit-user-select: none;">全部标为已读</div>
+                                            <div class="goog-inline-block goog-flat-menu-button goog-flat-menu-button-collapse-left" title="" role="button" style="-webkit-user-select: none;" tabindex="0" aria-haspopup="true">
+                                                <div class="goog-inline-block goog-flat-menu-button-caption">
+                                                </div>
+                                                <div class="goog-inline-block goog-flat-menu-button-dropdown">&nbsp;</div>
+                                            </div>
+                                        </span>
+                                        <span id="settings-button-container">
+                                            <div role="button" id="settings-button" class="goog-inline-block jfk-button jfk-button-standard viewer-buttons goog-flat-menu-button" tabindex="0" title="设置" aria-expanded="false" style="-webkit-user-select: none;" aria-haspopup="true" aria-activedescendant="">
+                                                <div class="goog-inline-block goog-flat-menu-button-caption">
+                                                    <img src="media/img/settings.png" alt="" class="jfk-button-img" id="aeaoofnhgocdbnbeljkmbjdmhbcokfdb-mousedown">
+                                                </div>
+                                                <div class="goog-inline-block goog-flat-menu-button-dropdown">&nbsp;</div>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="viewer-container">
+                            <div  id="viewer-entries-container" style="height: 434px;">
+                                <div id="title-and-status-holder">
+                                    <span id="chrome-title"><a target="_blank" href="{{currentFeed.SiteUrl}}">{{currentFeed.Title}}<span class="chevron">»</span></a></span>
+                                    <span id="viewer-single-parent"></span>
+                                    <span id="viewer-single-item-parent"></span>
+                                    <span id="entries-status"></span>
+                                    <div class="clear" style=""></div>
+                                </div>
+                                <div class="samedir">
+                                    <div id="entries" class="single-source list">
+                                        <div class="entry entry-{{item.Id}} ril_marked" ng-repeat="item in rss">
+                                            <div class="collapsed">
+                                                <div class="entry-icons">
+                                                    <div class="item-star star link unselectable empty"></div>
+                                                </div>
+                                                <div class="entry-date">{{item.Pubdate}}</div>
+                                                <div class="entry-main">
+                                                    <a class="entry-original" target="_blank" href="{{item.Link}}"></a>
+                                                    <span class="entry-source-title">{{item.Channel}}</span>
+                                                    <div class="entry-secondary">
+                                                        <h2 class="entry-title" ng-bind-html-unsafe="item.Title"></h2>
+                                                        <span class="entry-secondary-snippet"> - <span class="snippet" ng-bind-html-unsafe="item.Description"></span></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="settings-button-menu" class="goog-menu" style="-webkit-user-select: none; visibility: visible; left: 1158px; top: 38px; display: none;" role="menu" aria-haspopup="true" aria-activedescendant="">
+            <div class="goog-menuheader goog-menuheader-disabled" aria-disabled="true" style="-webkit-user-select: none;" id=":0">显示密度：</div>
+            <div class="goog-menuitem goog-option-selected goog-option" role="menuitem" style="-webkit-user-select: none;" id=":1">
+                <div class="goog-menuitem-content">
+                    <div class="goog-menuitem-checkbox"></div> 标准 （适用于更大屏幕）
+                </div>
+            </div>
+            <div class="goog-menuitem goog-option" role="menuitem" style="-webkit-user-select: none;" id=":2">
+                <div class="goog-menuitem-content">
+                    <div class="goog-menuitem-checkbox"></div> 适中 （适用于更大屏幕）
+                </div>
+            </div>
+            <div class="goog-menuitem goog-option" role="menuitem" style="-webkit-user-select: none;" id=":3">
+                <div class="goog-menuitem-content">
+                    <div class="goog-menuitem-checkbox"> </div>紧凑
+                </div>
+            </div>
+        </div>
 
-
-<!--STYLES--><!--STYLES END-->
-<!--SCRIPTS--><!--SCRIPTS END-->
-<!--LIVERELOAD-->
-
-</body>
+        <script type="text/javascript"></script>
+        <script type="text/javascript" src="media/lib/jquery-2.0.0.min.js" ></script>
+        <script type="text/javascript" src="media/lib/sprintf.min.js" ></script>
+        <script type="text/javascript" src="media/js/greader.js"></script>
+        <script src="Content/js/angular.js"></script>
+        <script src="Content/js/app.js"></script>
+        <script src="Content/js/controllers/HomeController.js"></script>
+    </body>
 </html>
