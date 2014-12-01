@@ -1,16 +1,22 @@
 {
   "js": [
-    "_dist/client/public/vendor/angular/*.js",
-    "_dist/client/public/vendor/angular-animate/**/*.js",
-    "_dist/client/public/vendor/angular-cookie/**/*.js",
-    "_dist/client/public/vendor/angular-cookies/**/*.js",
-    "_dist/client/public/vendor/angular-route/**/*.js",
-    "_dist/client/public/vendor/angular-sanitize/**/*.js",
-    "_dist/client/public/config/**/*.js",
-    "_dist/client/public/common/**/*.js",
-    "_dist/client/public/app/**/*.js",
-    "_dist/client/public/templates.js"
+    "_dist/vendor/angular/*.js",
+    "_dist/vendor/angular-animate/**/*.js",
+    "_dist/vendor/angular-cookie/**/*.js",
+    "_dist/vendor/angular-cookies/**/*.js",
+    "_dist/vendor/angular-route/**/*.js",
+    "_dist/vendor/angular-sanitize/**/*.js",
+    "_dist/config/**/*.js",
+    "_dist/common/**/*.js",
+    "_dist/app/**/*.js",
+    "_dist/templates.js"
   ],
   "css":[
+    "_dist/css/main.css",
+    "_dist/css/scroll.css",
+    "_dist/css/scroll_large_density.css",
+    "_dist/css/scroll_medium_density.css",
+    "_dist/css/scroll_small_density.css",
+    "_dist/app/**/*.css"
   ]
 }

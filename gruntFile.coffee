@@ -45,12 +45,6 @@
         files: ['client/**/*.coffee']
         tasks: ['newer:coffee:client','sails-linker','replace:livereload']
 
-    coffeelint:
-      app: ['client/**/*.coffee']
-      options:
-        max_line_length:
-          level: 'ignore'
-
     coffee:
       options:
         bare: true
@@ -101,10 +95,8 @@
       redundant:
         src: [
           "_dist/*"
-          "!_dist/client/public/data"
-          "!_dist/client/public/img"
-          "!_dist/client/public/plugin"
-          "!_dist/client/public/*.*"
+          "!_dist/img"
+          "!_dist/*.*"
         ]
 
     copy:
@@ -160,7 +152,6 @@
 
   grunt.registerTask "build", ->
     grunt.task.run [
-        "coffeelint"
         "clean:all"
         "bower"
         "copy"

@@ -3,16 +3,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Google 阅读器</title>
-
-        <link type="text/css" rel="stylesheet" href="media/css/main.css">
-        <link type="text/css" rel="stylesheet" href="media/css/scroll.css">
-        <link type="text/css" rel="stylesheet" href="media/css/scroll_large_density.css" disabled="disabled" />
-        <link type="text/css" rel="stylesheet" href="media/css/scroll_medium_density.css" disabled="disabled" />
-        <link type="text/css" rel="stylesheet" href="media/css/scroll_small_density.css" />
-        <link type="text/css" rel="stylesheet" href="/Content/css/style.css" />
+        <!--STYLES--><!--STYLES END-->
+        <!--SCRIPTS--><!--SCRIPTS END-->
+        <!--LIVERELOAD-->
     </head>
     <body ng-controller="HomeController">
-
         <div id="gb">
             <div id="gbw">
                 <div id="gbzw">
@@ -177,14 +172,14 @@
                                         <div class="toggle folder-toggle toggle-d-0"></div>
                                         <div ng-repeat="folder in feeds.Folders">
                                             <div class="icon folder-icon"></div>
-                                            <div>{{folder.FolderName}}</div>
-                                            <ul ng-repeat="rss in folder.RssItems">
+                                            <div>{{folder.Name}}</div>
+                                            <ul ng-repeat="feed in folder.Feeds">
                                                 <li class="sub unselectable expanded unread">
                                                     <div class="toggle sub-toggle toggle-d-2 hidden"></div>
-                                                    <a class="link" ng-click="showContent(rss,'rss')">
-                                                        <div style="background-image: url('/Content/img/default.gif'); background-size:16px 16px" class="icon sub-icon icon-d-2 favicon"></div>
-                                                        <div class="name-text name name-unread" ng-show="rss.Count>0">{{rss.Title}} ({{rss.Count}})</div>
-                                                        <div class="name-text name" ng-show="rss.Count==0">{{rss.Title}}</div>
+                                                    <a class="link" ng-click="showContent(feed)">
+                                                        <div style="background-image: url('/img/default.gif'); background-size:16px 16px" class="icon sub-icon icon-d-2 favicon"></div>
+                                                        <div class="name-text name name-unread" ng-show="rss.Count>0">{{rss.Name}} ({{rss.UnreadCount}})</div>
+                                                        <div class="name-text name" ng-show="rss.Count==0">{{rss.Name}}</div>
                                                         <div class="tree-item-action-container">
                                                             <div class="action tree-item-action section-button section-menubutton goog-menu-button"></div>
                                                         </div>
@@ -212,7 +207,7 @@
                                         <div class="lhn-nav-button-container">
                                         </div>
                                         <div role="button" id="viewer-refresh" class="goog-inline-block jfk-button jfk-button-standard viewer-buttons" tabindex="0" title="刷新" style="-webkit-user-select: none;">
-                                            <img src="media/img/refresh.png" alt="" class="jfk-button-img">
+                                            <img src="/img/refresh.png" alt="" class="jfk-button-img">
                                         </div>
                                         <span id="mark-all-as-read-split-button">
                                             <div role="button" class="goog-inline-block jfk-button jfk-button-standard jfk-button-collapse-right" tabindex="0" style="-webkit-user-select: none;">全部标为已读</div>
@@ -225,7 +220,7 @@
                                         <span id="settings-button-container">
                                             <div role="button" id="settings-button" class="goog-inline-block jfk-button jfk-button-standard viewer-buttons goog-flat-menu-button" tabindex="0" title="设置" aria-expanded="false" style="-webkit-user-select: none;" aria-haspopup="true" aria-activedescendant="">
                                                 <div class="goog-inline-block goog-flat-menu-button-caption">
-                                                    <img src="media/img/settings.png" alt="" class="jfk-button-img" id="aeaoofnhgocdbnbeljkmbjdmhbcokfdb-mousedown">
+                                                    <img src="/img/settings.png" alt="" class="jfk-button-img" id="aeaoofnhgocdbnbeljkmbjdmhbcokfdb-mousedown">
                                                 </div>
                                                 <div class="goog-inline-block goog-flat-menu-button-dropdown">&nbsp;</div>
                                             </div>
@@ -250,10 +245,10 @@
                                                 <div class="entry-icons">
                                                     <div class="item-star star link unselectable empty"></div>
                                                 </div>
-                                                <div class="entry-date">{{item.Pubdate}}</div>
+                                                <div class="entry-date">{{item.Date}}</div>
                                                 <div class="entry-main">
                                                     <a class="entry-original" target="_blank" href="{{item.Link}}"></a>
-                                                    <span class="entry-source-title">{{item.Channel}}</span>
+                                                    <span class="entry-source-title">{{currentFeed.Name}}</span>
                                                     <div class="entry-secondary">
                                                         <h2 class="entry-title" ng-bind-html-unsafe="item.Title"></h2>
                                                         <span class="entry-secondary-snippet"> - <span class="snippet" ng-bind-html-unsafe="item.Description"></span></span>
@@ -288,12 +283,5 @@
             </div>
         </div>
 
-        <script type="text/javascript"></script>
-        <script type="text/javascript" src="media/lib/jquery-2.0.0.min.js" ></script>
-        <script type="text/javascript" src="media/lib/sprintf.min.js" ></script>
-        <script type="text/javascript" src="media/js/greader.js"></script>
-        <script src="Content/js/angular.js"></script>
-        <script src="Content/js/app.js"></script>
-        <script src="Content/js/controllers/HomeController.js"></script>
     </body>
 </html>
