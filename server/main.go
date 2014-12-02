@@ -64,6 +64,11 @@ func main() {
 		defer session.Close()
 		c := session.DB("reader").C("users")
 		c.UpdateId(params["_id"], params)
+		fmt.Printf(params["_id"])
+
+		//添加new feed到Recourse
+		//todo
+
 		r.JSON(200, map[string]interface{}{"result": "ok"})
 	})
 
